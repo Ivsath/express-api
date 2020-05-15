@@ -3,6 +3,8 @@ import { json, urlencoded } from "body-parser";
 import morgan from "morgan";
 import cors from "cors";
 
+import itemRouter from "./resources/item/item.router";
+
 export const app = express();
 
 app.disable("x-powered-by");
@@ -12,13 +14,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-  res.send({ message: "hello" });
-});
-
-app.post("/", (req, res) => {
-  res.send(req.body);
-});
+app.use("/api/item", itemRouter);
 
 export const start = () => {
   app.listen(3000, () => {
