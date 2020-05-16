@@ -30,6 +30,7 @@ const itemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// The combination of a list and a name must be unique
 itemSchema.index({ list: 1, name: 1 }, { unique: true });
 
 export const Item = mongoose.model("item", itemSchema);
