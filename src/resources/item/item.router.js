@@ -1,14 +1,16 @@
 import { Router } from "express";
-const controller = (req, res) => {
-  res.send({ message: "asdfg" });
-};
+import controllers from "./item.controllers";
 
 const router = Router();
 
 // /api/item
-router.route("/").get(controller).post(controller);
+router.route("/").get(controllers.getMany).post(controllers.createOne);
 
-// /api/item/;id
-router.route("/:id").get(controller).put(controller).delete(controller);
+// /api/item/:id
+router
+  .route("/:id")
+  .get(controllers.getOne)
+  .put(controllers.updateOne)
+  .delete(controllers.removeOne);
 
 export default router;
