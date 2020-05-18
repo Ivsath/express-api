@@ -15,6 +15,7 @@ export const updateMe = async (req, res) => {
     res.status(200).json({ data: user });
   } catch (e) {
     console.error(e);
+
     res.status(400).end();
   }
 };
