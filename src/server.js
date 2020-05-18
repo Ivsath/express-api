@@ -4,10 +4,13 @@ import morgan from "morgan";
 import cors from "cors";
 
 import { signup, signin, protect } from "./utils/auth";
+import { connect } from "./utils/db";
 
 import userRouter from "./resources/user/user.router";
 import itemRouter from "./resources/item/item.router";
 import listRouter from "./resources/list/list.router";
+
+import config from "./config";
 
 export const app = express();
 
@@ -26,8 +29,13 @@ app.use("/api/user", userRouter);
 app.use("/api/item", itemRouter);
 app.use("/api/list", listRouter);
 
-export const start = () => {
-  app.listen(3000, () => {
-    console.log("Server listening on port 3000");
-  });
+export const start = async () => {
+  try {
+    await connect();
+    app.listen(config.port, () => {
+      console.log(`REST API on http://localhost:${config.port}/api`);
+    });
+  } catch (e) {
+    console.error(e);
+  }
 };
